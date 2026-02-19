@@ -3,15 +3,16 @@ import { cn } from '@/lib/utils'
 import UsageWidget from './Usage/UsageWidget'
 import { LayoutDashboard, Calendar, FolderOpen, Puzzle, Heart, Settings, Menu, X, Coffee, Sun, Moon, KeyRound } from 'lucide-react'
 import { useTheme } from './ThemeContext'
+import { BRANDING } from '../config/branding'
 
 const navItems = [
-  { id: 'kanban', label: 'Tasks', icon: LayoutDashboard },
-  { id: 'calendar', label: 'Activity', icon: Calendar },
-  { id: 'files', label: 'Files', icon: FolderOpen },
-  { id: 'skills', label: 'Skills', icon: Puzzle },
-  { id: 'soul', label: 'Soul', icon: Heart },
-  { id: 'credentials', label: 'Credentials', icon: KeyRound },
-  { id: 'settings', label: 'Settings', icon: Settings },
+  { id: 'kanban', label: BRANDING.nav.kanban, icon: LayoutDashboard },
+  { id: 'calendar', label: BRANDING.nav.calendar, icon: Calendar },
+  { id: 'files', label: BRANDING.nav.files, icon: FolderOpen },
+  { id: 'skills', label: BRANDING.nav.skills, icon: Puzzle },
+  { id: 'soul', label: BRANDING.nav.soul, icon: Heart },
+  { id: 'credentials', label: BRANDING.nav.credentials, icon: KeyRound },
+  { id: 'settings', label: BRANDING.nav.settings, icon: Settings },
 ]
 
 export default function Layout({ page, setPage, children }) {
@@ -59,11 +60,18 @@ export default function Layout({ page, setPage, children }) {
         sidebarOpen ? 'translate-x-0' : '-translate-x-full'
       )}>
         <div className="p-4 border-b border-border flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
-              ⚡ VidClaw
-            </h1>
-            <p className="text-xs text-muted-foreground mt-0.5">Clawmand Center</p>
+          <div className="flex items-center gap-2">
+            <img
+              src={BRANDING.logoUrl}
+              alt="GeronLabs"
+              className="w-8 h-8 rounded object-cover border border-border"
+            />
+            <div>
+              <h1 className="text-lg font-bold bg-gradient-to-r from-orange-400 to-amber-400 bg-clip-text text-transparent">
+                {BRANDING.shortName}
+              </h1>
+              <p className="text-xs text-muted-foreground mt-0.5">{BRANDING.tagline}</p>
+            </div>
           </div>
           <button
             onClick={() => setSidebarOpen(false)}
@@ -93,7 +101,7 @@ export default function Layout({ page, setPage, children }) {
           onClick={() => setPage('settings')}
           className="p-3 border-t border-border text-xs text-muted-foreground hover:text-foreground transition-colors text-left flex items-center gap-1.5 w-full"
         >
-          <span>VidClaw v{__APP_VERSION__}</span>
+          <span>{BRANDING.appName} v{__APP_VERSION__}</span>
           {updateAvailable && (
             <span className="inline-block w-2 h-2 rounded-full bg-amber-400 shrink-0" title={`Update available: v${updateAvailable}`} />
           )}
@@ -114,19 +122,19 @@ export default function Layout({ page, setPage, children }) {
           </div>
           <div className="flex items-center gap-1.5 sm:gap-3">
             <a
-              href="https://buy.stripe.com/8x2aEX0Wl7Wv7Roag9cEw0f"
+              href={BRANDING.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 text-[11px] text-muted-foreground hover:text-amber-400 transition-colors"
             >
               <Coffee size={12} />
-              <span className="hidden sm:inline">Buy me a coffee</span>
+              <span className="hidden sm:inline">{BRANDING.supportLabel}</span>
             </a>
             <UsageWidget />
             <button
               onClick={toggleTheme}
               className="text-muted-foreground hover:text-foreground transition-colors"
-              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Светлая тема' : 'Темная тема'}
             >
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
             </button>
